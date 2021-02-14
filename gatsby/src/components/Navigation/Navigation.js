@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import { NavigationStyles } from './Navigation.styles';
+import Logo from '../Logo/Logo';
 
 const Navigation = () => (
-   <nav>
+   <NavigationStyles>
       <ul>
          <li>
             <Link to="/">Hot Now</Link>
@@ -11,7 +13,9 @@ const Navigation = () => (
             <Link to="/pizzas">Pizza Menu</Link>
          </li>
          <li>
-            <Link to="/">LOGO</Link>
+            <Link to="/">
+               <Logo />
+            </Link>
          </li>
          <li>
             <Link to="/slicemasters">SliceMasters</Link>
@@ -20,7 +24,7 @@ const Navigation = () => (
             <Link to="/order">Order Ahead!</Link>
          </li>
       </ul>
-   </nav>
+   </NavigationStyles>
 );
 
 export default Navigation;
