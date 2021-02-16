@@ -34,9 +34,9 @@ export default {
       name: 'price',
       title: 'Price',
       type: 'number',
-      description: 'Price of the pizza in zl',
+      description: 'Price of the pizza in cents',
       inputComponent: PriceInput,
-      validation: (Rule) => Rule.min(1000).max(50000),
+      validation: (Rule) => Rule.min(10).max(70),
       // Todo: add custom component
     },
     {
