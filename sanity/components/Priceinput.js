@@ -4,15 +4,15 @@ import PatchEvent, { set, unset } from 'part:@sanity/form-builder/patch-event';
 const createPatchFrom = (value) =>
   PatchEvent.from(value === '' ? unset() : set(Number(value)));
 
-const formatMoney = Intl.NumberFormat('pl', {
+const formatMoney = Intl.NumberFormat('en-CA', {
   style: 'currency',
-  currency: 'PLN',
+  currency: 'CAD',
 }).format;
 
 const Priceinput = ({ type, value, onChange, inputComponent }) => (
   <div>
     <h2>
-      {type.title} - {value ? formatMoney(value) : ''}
+      {type.title} - {value ? formatMoney(value / 100) : ''}
     </h2>
     <p>{type.description}</p>
     <input
