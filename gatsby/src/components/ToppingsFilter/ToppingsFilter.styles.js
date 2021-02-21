@@ -20,7 +20,10 @@ export const ToppingsStyles = styled.div`
          padding: 2px 5px;
       }
 
-      .active {
+      &[aria-current='page'] {
+         background-color: var(--yellow);
+      }
+      &.active {
          background-color: var(--yellow);
       }
    }
