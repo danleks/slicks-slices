@@ -1,9 +1,80 @@
-import React from 'react';
+import { graphql } from 'gatsby';
+import React, { useState } from 'react';
+import Img from 'gatsby-image';
+import SEO from '../components/SEO/SEO';
+import useForm from '../utils/useForm';
+import calculatePizzaPrice from '../utils/calculatePizzaPrice';
+import formatMoney from '../utils/formatMoney';
+import { OrderPageStyles, MenuItemStyles } from '../styles/OrderPageStyles';
 
-const OrderPage = () => (
-        <div>
-                <p>Hey, i am a OrderPage</p>
-        </div>
-);
+const OrderPage = ({ data }) => {
+   const { values, updateValues } = useForm({
+      name: '',
+      email: '',
+   });
+   const pizzas = data.pizzas.nodes;
+   return (
+      <>
+         <SEO title="Order a Pizza!" />
+         <OrderPageStyles>
+            <fieldset>
+               <legend>Your info</legend>
+               <label htmlFor="name">
+                  Name
+                  <input id="name" type="text" name="name" value={values.name} onChange={updateValues} />
+               </label>
+               <label htmlFor="email">
+                  Email
+                  <input id="email" type="email" name="email" value={values.email} onChange={updateValues} />
+               </label>
+            </fieldset>
+            <fieldset className="menu">
+               <legend>Menu</legend>
+               {pizzas.map((pizza) => (
+                  <MenuItemStyles key={pizza.id}>
+                     <Img width="50" height="50" fluid={pizza.image.asset.fluid} alt={pizza.name} />
+                     <div>
+                        <h2>{pizza.name}</h2>
+                     </div>
+                     <div>
+                        {['S', 'M', 'L'].map((size) => (
+                           <button type="button">
+                              {size}
+                              {formatMoney(calculatePizzaPrice(pizza.price, size))}
+                           </button>
+                        ))}
+                     </div>
+                  </MenuItemStyles>
+               ))}
+            </fieldset>
+            <fieldset className="order">
+               <legend>Order</legend>
+            </fieldset>
+         </OrderPageStyles>
+      </>
+   );
+};
 
 export default OrderPage;
+
+export const query = graphql`
+   query {
+      pizzas: allSanityPizza {
+         nodes {
+            name
+            id
+            slug {
+               current
+            }
+            price
+            image {
+               asset {
+                  fluid(maxWidth: 100) {
+                     ...GatsbySanityImageFluid
+                  }
+               }
+            }
+         }
+      }
+   }
+`;
