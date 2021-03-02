@@ -22,7 +22,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   fieldset {
-    border-color: rgba(0,0,0,0.1);
+    border-color: rgba(0,0,0,0.4);
     border-width: 1px;
   }
 
